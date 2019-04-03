@@ -52,9 +52,6 @@ public class WebsServlet extends HttpServlet {
 
         // Decide which method has to be called
         switch (action) {
-            case "":
-                response.sendRedirect("index.jsp");
-                break;
             case "list":
                 list(request, response);
                 break;
@@ -76,14 +73,8 @@ public class WebsServlet extends HttpServlet {
             case "delete":
                 delete(request, response);
                 break;
-//            case "filter_form":
-//                showFormFilter(request, response);
-//                break;
-//            case "filter":
-//                filterWeb(request, response);
-//                break;
-//            default:
-//                response.sendRedirect("index.jsp");
+            default:
+                response.sendRedirect("index.jsp");
         }
 
         // Refresh the webs JSP page after any action
@@ -102,18 +93,15 @@ public class WebsServlet extends HttpServlet {
     private void list(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Reset the filter attribute, to hide the create PDF button
-        request.setAttribute("filtered", false);
-
         List<Web> webs = webDAO.list();
         request.setAttribute("webs", webs);
 
-        if (webs.isEmpty()) {
-            messages.put("error", "Webs list is empty");
-        } else {
-            messages.put("success", String.format("Total webs: %d", webs.size()));
-        }
-
+//        // Message telling the number of entries
+//        if (webs.isEmpty()) {
+//            messages.put("error", "Webs list is empty");
+//        } else {
+//            messages.put("success", String.format("Total webs: %d", webs.size()));
+//        }
     }
 
     /**
@@ -184,16 +172,16 @@ public class WebsServlet extends HttpServlet {
         // No validation errors? Do the business job!
         if (messages.isEmpty()) {
             if (webDAO.insert(web) == 1) {
-                messages.put("success", "Web has been added successfully.");
+                messages.put("success", "Web added successfully");
+                list(request, response);
             } else {
-                messages.put("error", "No web has been added due to a database error. Contact developer.");
+                messages.put("error", "Web not added due to a database error. Contact developer.");
+                showAddForm(request, response);
             }
         } else {
             messages.put("error", "Please check the fields");
+            showAddForm(request, response);
         }
-
-        // Keep showing the add form.
-        showAddForm(request, response);
 
     }
 
@@ -278,16 +266,16 @@ public class WebsServlet extends HttpServlet {
         // No validation errors? Do the business job!
         if (messages.isEmpty()) {
             if (webDAO.update(web) == 1) {
-                messages.put("success", "Web has been updated successfully.");
+                messages.put("success", "Web updated successfully");
+                list(request, response);
             } else {
-                messages.put("error", "No web has been updated due to a database error. Contact developer.");
+                messages.put("error", "Web not updated due to a database error. Contact developer.");
+                showModifyForm(request, response);
             }
         } else {
             messages.put("error", "Please check the fields");
+            showModifyForm(request, response);
         }
-
-        // Keep showing the modify form.
-        showModifyForm(request, response);
 
     }
 
@@ -301,18 +289,14 @@ public class WebsServlet extends HttpServlet {
         String code = request.getParameter("code");
         web.setCode(code);
 
-        // No validation errors? Do the business job!
-        if (messages.isEmpty()) {
-            if (webDAO.delete(web) == 1) {
-                messages.put("success", "Web has been deleted successfully.");
-            } else {
-                messages.put("error", "No web has been deleted due to a database error. Contact developer.");
-            }
+        // Send to delete to DAO directly, without validation, we only need the web code (primary key)
+        if (webDAO.delete(web) == 1) {
+            messages.put("success", "Web deleted successfully");
         } else {
-            messages.put("error", "Please check the fields");
+            messages.put("error", "Web not deleted due to a database error. Contact developer.");
         }
 
-        // Keep showing the webs list.
+        // Keep showing the list, no matter what the result is
         list(request, response);
 
     }

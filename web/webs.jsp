@@ -62,7 +62,7 @@
                         <c:if test="${role == 'admin'}">
                             <td scope="row">
                               <button class="btn btn-primary" type="submit" value="${web.code};${web.publicationDate};${web.title};${web.url}" name="web_to_modify">Update</button>
-                              <a class="btn btn-danger" href="webs?action=delete&code=${web.code}" onclick="return confirm(Are you sure?)">Delete</a>
+                              <a class="btn btn-danger" href="webs?action=delete&code=${web.code}" onclick="confirm('Are you sure you want to delete this entry?')">Delete</a>
                               <input type="hidden" name="action" value="prepare_web_to_modify"/>
                             </td>
                         </c:if>
@@ -78,7 +78,7 @@
             <form action="webs" method="post">
               <div class="form-group row">
                 <label for="inputCode" class="col-sm-3">Web Code:</label>
-                <input type="text" class="form-control col-sm-6" id="inputCode" name="code" placeholder="Web Code"
+                <input type="text" class="form-control col-sm-6" id="inputCode" name="code" placeholder="P-1234"
                        value="<c:out value="${web.code}"/>"
                        <c:if test="${modify}">readonly</c:if>>
                 <c:if test="${messages.code != null}">
@@ -87,7 +87,7 @@
               </div>
               <div class="form-group row">
                 <label for="inputPublicationDate" class="col-sm-3">Publication Date:</label>
-                <input type="text" class="form-control col-sm-6" id="inputPublicationDate" name="publication_date" placeholder="Publication Date"
+                <input type="text" class="form-control col-sm-6" id="inputPublicationDate" name="publication_date" placeholder="2019-12-31"
                        value="<c:out value="${web.publicationDate}"/>">
                 <c:if test="${messages.publicationDate != null}">
                     <span class="text-danger col-sm-3">${messages.publicationDate}</span>
@@ -95,7 +95,7 @@
               </div>
               <div class="form-group row">
                 <label for="inputTitle" class="col-sm-3">Title:</label>
-                <input type="text" class="form-control col-sm-6" id="inputTitle" name="title" placeholder="Title"
+                <input type="text" class="form-control col-sm-6" id="inputTitle" name="title" placeholder="Web Title Example"
                        value="<c:out value="${web.title}"/>">
                 <c:if test="${messages.title != null}">
                     <span class="text-danger col-sm-3">${messages.title}</span>
@@ -103,7 +103,7 @@
               </div>
               <div class="form-group row">
                 <label for="inputURL" class="col-sm-3">URL:</label>
-                <input type="text" class="form-control col-sm-6" id="inputURL" name="url" placeholder="URL"
+                <input type="text" class="form-control col-sm-6" id="inputURL" name="url" placeholder="https://www.example.com"
                        value="<c:out value="${web.url}"/>">
                 <c:if test="${messages.url != null}">
                     <span class="text-danger col-sm-3">${messages.url}</span>
