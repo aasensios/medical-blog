@@ -1,10 +1,8 @@
-Note from developer:
+This project has been uploaded to a public GitHub repository:
 
-- I have an issue since I changes "username" to "name" in user attribute. Login/register does not work.
+https://github.com/aasensios/medical-blog
 
-
-
-##############
+--------------
 INS Provençana
 CFGS de DAW BIO -2
 Curs 2018-19
