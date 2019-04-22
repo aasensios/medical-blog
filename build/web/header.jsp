@@ -20,8 +20,19 @@
             <a class="btn btn-primary my-2 my-sm-0" href='login.jsp'>Login</a>
         </c:when>
         <c:otherwise>
+            <c:if test="${role == 'admin'}">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Users</a>
+                  <div class="dropdown-menu" aria-labelledby="dropdown02">
+                    <a class="dropdown-item" href="users?action=list">List</a>
+                    <a class="dropdown-item" href="users?action=register_form">Add</a>
+                    <a class="dropdown-item" href="users?action=modify_form">Modify</a>
+                    <a class="dropdown-item" href="users?action=delete_form">Delete</a>
+                  </div>
+                </li>
+            </c:if>
             <a class="btn text-warning">${name} (${role})</a>
-            <a class="btn btn-warning my-2 my-sm-0" href="users?action=logout">Logout</a>
+            <a class="btn btn-warning" href="users?action=logout">Logout</a>
         </c:otherwise>
     </c:choose>
   </nav>

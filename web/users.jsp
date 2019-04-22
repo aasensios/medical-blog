@@ -22,7 +22,7 @@
     <br>
     <main class="container" role="main">
       <div class="starter-template">
-        
+
         <!-- Messages: Success or Error -->
         <c:choose>
             <c:when test="${messages.success != null}">
@@ -36,7 +36,7 @@
         </c:choose>
         <br>
         <br>
-        
+
         <!-- List all users with modify and delete buttons if needed -->
         <c:if test="${users != null}">
             <table class="table table-striped">
@@ -59,7 +59,7 @@
                 <c:if test="${showFormAdd}">
                 <form action="users" method="POST">
                   <tr>
-                    <td scope="row"><input type="text" placeholder="Username" name="username"></td>
+                    <td scope="row"><input type="text" placeholder="Username" name="name"></td>
                     <td scope="row"><input type="text" placeholder="Password" name="password"></td>
                     <td scope="row">
                       <select class="custom-select" name="role">
@@ -75,20 +75,20 @@
               </c:if>
               <c:forEach items="${users}" var="user">
                   <tr>
-                    <td scope="row">${user.username}</td>
+                    <td scope="row">${user.name}</td>
                     <td scope="row">${user.password}</td>
                     <td scope="row">${user.role}</td>
                     <!--Modify / Delete buttons appear if the according option is clicked-->
                     <c:choose>
                         <c:when test="${showModifyButtons}">
                             <td scope="row">
-                              <button class="btn btn-warning" type="submit" value="${user.username};${user.password};${user.role}" name="user">Modify</button>
+                              <button class="btn btn-warning" type="submit" value="${user.name};${user.password};${user.role}" name="user">Modify</button>
                               <input type="hidden" name="action" value="user_to_modify"/>
                             </td>
                         </c:when>
                         <c:when test="${showDeleteButtons}">
                             <td scope="row">
-                              <button class="btn btn-danger" type="submit" value="${user.username};${user.password};${user.role}" name="user" onclick="confirm(Are you sure?)">Delete</button>
+                              <button class="btn btn-danger" type="submit" value="${user.name};${user.password};${user.role}" name="user" onclick="confirm(Are you sure?)">Delete</button>
                               <input type="hidden" name="action" value="user_to_delete"/>
                             </td>
                         </c:when>
@@ -105,9 +105,9 @@
             <form action="users" method="POST">
               <div class="form-group row">
                 <label for="inputUsername" class="col-sm-3">Username:</label>
-                <input type="text" class="form-control col-sm-6" id="inputUsername" name="username" placeholder="Username" 
-                       value="<c:out value="${user_to_modify.username}"/>">
-                <c:if test="${messages != null}"><span class="text-danger col-sm-3">${messages.username}</span></c:if>
+                <input type="text" class="form-control col-sm-6" id="inputUsername" name="name" placeholder="Username" 
+                       value="<c:out value="${user_to_modify.name}"/>">
+                <c:if test="${messages != null}"><span class="text-danger col-sm-3">${messages.name}</span></c:if>
 
                 </div>
                 <div class="form-group row">
@@ -137,7 +137,7 @@
                       <button type="submit" class="btn btn-primary" value="register" name="action">Add User</button>
                   </c:when>
                   <c:when test="${user_to_modify != null}">
-                      <input type="hidden" value="${user_to_modify.username}" name="username"/>
+                      <input type="hidden" value="${user_to_modify.name}" name="name"/>
                       <button type="submit" class="btn btn-primary" name="action" value="modify">Modify User</button>
                   </c:when>
                   <c:otherwise>

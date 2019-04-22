@@ -78,7 +78,7 @@
             <form action="webs" method="post">
               <div class="form-group row">
                 <label for="inputCode" class="col-sm-3">Web Code:</label>
-                <input type="text" class="form-control col-sm-6" id="inputCode" name="code" placeholder="P-1234"
+                <input type="text" class="form-control col-sm-6" id="inputCode" name="code" placeholder="P-1234" autofocus
                        value="<c:out value="${web.code}"/>"
                        <c:if test="${modify}">readonly</c:if>>
                 <c:if test="${messages.code != null}">
@@ -113,9 +113,10 @@
                   <button class="btn btn-success" type="submit" name="action" value="add">Add</button>
               </c:if>
               <c:if test="${modify}">
-                  <button class="btn btn-warning" type="submit" name="action" value="modify">Modify</button>
+                  <button class="btn btn-primary" type="submit" name="action" value="modify">Modify</button>
               </c:if>
               <button class="btn btn-secondary" type="reset">Reset</button>
+              <button class="btn btn-danger" type="submit" name="action" value="list">Cancel</button>
             </form>
         </c:if>
       </div>

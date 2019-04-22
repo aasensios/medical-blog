@@ -29,18 +29,18 @@
                     <c:choose>
                         <c:when test="${!logged_in}">
                             <figcaption>${category.name}</figcaption>
-                        </c:when>
-                        <c:otherwise>
-                            <c:choose>
-                                <c:when test="${category.name == 'webs'}">
+                            </c:when>
+                            <c:otherwise>
+                                <c:choose>
+                                    <c:when test="${category.name == 'webs'}">
                                     <figcaption><a href="webs?action=list">${category.name}</a></figcaption>
-                                </c:when>
-                                <c:otherwise>
+                                    </c:when>
+                                    <c:otherwise>
                                     <figcaption><a href="https://www.google.es">${category.name}</a></figcaption>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:otherwise>
-                    </c:choose>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:otherwise>
+                        </c:choose>
                   </fig>
               </c:forEach>
             </div>

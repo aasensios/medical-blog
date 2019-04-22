@@ -7,3 +7,7 @@
     height: 113px;
     background-color: #f5f5f5;
 }
+
+li {
+    list-style-type: none
+}
